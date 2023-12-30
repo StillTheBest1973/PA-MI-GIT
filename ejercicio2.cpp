@@ -77,7 +77,7 @@ int Empleado::getSalario(){
 }
 
 int main(){
-	int maximo = 0;
+	int maximo = 9;
 	string nombre, domicilio;
 	Empleado Mario("analista", 1200, "mario", "peru");
 	Empleado Juan("cajero", 900,"juan" , "peru");

@@ -77,7 +77,7 @@ string Ebook::getFormato(){
 }
 
 int main(){
-	int maximo = 0;
+	int maximo = 12;
 	string titulo;
 	int precio;
 	Ebook Mario(12, "pdf", "juasjuas", 15);
