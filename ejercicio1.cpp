@@ -6,8 +6,8 @@
 #include<vector>
 
 using namespace std;
-
-class Publicacion{
+// :v
+class Publicacion{//soy Will
 	private:
 		string titulo;
 		int precio;
@@ -77,7 +77,7 @@ string Ebook::getFormato(){
 }
 
 int main(){
-	int maximo = 12;
+	int maximo = 0;
 	string titulo;
 	int precio;
 	Ebook Mario(12, "pdf", "juasjuas", 15);
