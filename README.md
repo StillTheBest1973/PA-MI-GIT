@@ -1,0 +1,1 @@
+Inicialmente el git fue hecho por practica, tengo la esperanza de aprender como manejar este sistema y encontrarle el GRAN APOYO que se supone deberia brindar el acceso a versiones. PSDT: Gracias Will :v
