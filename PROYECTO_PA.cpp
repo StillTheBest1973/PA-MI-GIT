@@ -78,9 +78,10 @@ void Producto::setGanancia(float e){
 }
 
 bool Producto :: operator== (Producto& e){
-	if(this->cantidad == e.cantidad && this->ganancia){
-
+	if(this->ganancia == e.ganancia && this->nombre == e.nombre && this->precio == e.precio && this->tipo == e.tipo){
+		return true;
 	}
+	return false;
 }
 //Producto == Producto
 class Inventario{
@@ -409,20 +410,28 @@ void Tienda::Info(){
 	//HAY QUE LLENAR ACA
 }
 
-void menu(){
+void menu(Tienda &a){
 	system("cls");
-	cout<<"Bienvenido al sistema de gestion de Tienda.";
-	cout<<endl<<endl<<"Ingreso:";
-	cout<<endl<<"1. Tengo una cuenta";
-	cout<<endl<<"2. No tengo una cuenta";
+	cout<<"Bienvenido al sistema de gestion de Tiendas, "<<a.getNombre();
+	cout<<endl<<endl<<"1. ";
 }
 
 int main(){
 	string nombre;
-	cout<<"Bienvenido al sistema de gestion de Tienda.";
-	cout<<endl<<endl<<"			Ingrese el nombre de su tienda";
-	cout<<">>>";
-	cin>>nombre;
-	menu();
+	ofstream archiv1("datos.txt");
+	ifstream archiv2("datos.txt");
+	if (!archiv1.is_open()){
+		cout << "Error al abrir archivo.dat\n";
+		exit(EXIT_FAILURE);
+	}
+	if (!(archiv2 >> nombre)){
+		cout<<"Bienvenido al sistema de gestion de Tienda.";
+		cout<<endl<<endl<<"    Ingrese el nombre de su tienda";
+		cout<<endl<<">>> ";
+		cin>>nombre;
+		archiv1 << nombre;
+	} 
+	Tienda tienda1(nombre);
+	menu(tienda1);
 	return 0;
 }
