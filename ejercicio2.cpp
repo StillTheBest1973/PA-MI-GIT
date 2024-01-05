@@ -11,6 +11,7 @@ class Persona{
 	private:
 		string nombre;
 		string domicilio;
+		string NOHAYPAVO;
 	public:
 		Persona(string, string);
 		string getNombre();
