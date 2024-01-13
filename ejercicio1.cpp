@@ -11,6 +11,7 @@ class Publicacion{
 	private:
 		string titulo;
 		int precio;
+		string WILLESTUVOAQUI;
 	public:
 		Publicacion(string, int);
 		string getTitulo();
