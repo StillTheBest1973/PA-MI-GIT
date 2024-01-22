@@ -410,28 +410,114 @@ void Tienda::Info(){
 	//HAY QUE LLENAR ACA
 }
 
-void menu(Tienda &a){
+struct marquet{
+	int codigo;
+	int almacen;
+	string producto;
+};
+
+
+void menu(Tienda &a, marquet Sub1[], int active){
+	int opc;
+	ofstream archivo;
+	do {
 	system("cls");
 	cout<<"Bienvenido al sistema de gestion de Tiendas, "<<a.getNombre();
-	cout<<endl<<endl<<"1. ";
-}
+	cout<<endl<<endl<<"1. Introducir inventario";
+	cout<<endl<<endl<<"2. Leer inventario";
+	cout<<endl<<endl<<"3. Info";
+	cout<<endl<<endl<<"4. Salir";
+	cout<<endl<< ">>> ";
+	cin >> opc;
+	switch (opc){
+		case 1:
+			int num;
+			cout << "Cantidad Maxima de Registos: 10" << endl;
+			cin >> num;
+			for (int i = 0; i < num; i++){
+				cout << i << ". Codigo: "; cin >> Sub1[i].codigo;
+				cout << i << ". Almacen: "; cin >> Sub1[i].almacen;
+				cout << i << ". Producto: "; getline(cin >> ws, Sub1[i].producto); 	
+			}
+			active = num;
+			archivo.open("datos.txt");
+			archivo << "2 " << active << " "<< a.getNombre() << endl;
+			for(int i = 0; i < num; i++){
+				archivo << Sub1[i].codigo << " " << Sub1[i].almacen << " " << Sub1[i].producto << endl;
+			}
+			archivo << "3";
+			archivo.close();
+			system("PAUSE");
+			break;
+		case 2:
+			for (int i = 0; i < active; i++)
+			{
+					cout << i << ". Codigo: " << Sub1[i].codigo << endl;
+					cout << i << ". Almacen: " << Sub1[i].almacen << endl;
+					cout << i << ". Producto: " << Sub1[i].producto << endl;
+			}
+			system("PAUSE");
 
+			break;
+		case 3:
+			system("cls");
+			cout << "Falta info!!" << endl;
+			system("PAUSE");
+			break;
+		case 4:
+			break;
+		default:
+			cout << "\nOpcion de [1-4]!!";
+			system("PAUSE");
+			break;
+		}
+	} while (opc != 4);
+}
 int main(){
 	string nombre;
-	ofstream archiv1("datos.txt");
-	ifstream archiv2("datos.txt");
-	if (!archiv1.is_open()){
-		cout << "Error al abrir archivo.dat\n";
+	ofstream archiv1;
+	ifstream archiv2;
+	archiv2.open("datos.txt");
+	if (!archiv2.is_open()){
+		cout << "Error al leer archivo.dat\n";
 		exit(EXIT_FAILURE);
+	} else{
+		int b;
+		archiv2 >> b;
+		if (b == 2){
+			char aux;
+			int num;
+			archiv2 >> num;
+			archiv2.get(aux);
+			getline(archiv2, nombre);
+			marquet Sub1[20];
+			int i = 0;
+			archiv2 >> Sub1[i].codigo;
+			while (Sub1[i].codigo != 3)
+			{
+				archiv2 >> Sub1[i].almacen;
+				archiv2 >> aux;
+				getline(archiv2,Sub1[i].producto);
+				i++;
+				archiv2 >> Sub1[i].codigo;
+			}
+			
+			archiv2.close();			
+			Tienda tienda1(nombre);
+			menu(tienda1, Sub1, num);
+		} else {
+			archiv2.close();
+			archiv1.open("datos.txt");
+			marquet Sub1[20];
+			cout<<"Bienvenido al sistema de gestion de Tienda.";
+			cout<<endl<<endl<<"    Ingrese el nombre de su tienda";
+			cout<<endl<<">>> ";
+			getline(cin >> ws, nombre);
+			archiv1 << "2 " << 0 << " " << nombre << endl << "3";
+			Tienda tienda1(nombre);
+			menu(tienda1, Sub1, 0);
+			archiv1.close();
+		}
 	}
-	if (!(archiv2 >> nombre)){
-		cout<<"Bienvenido al sistema de gestion de Tienda.";
-		cout<<endl<<endl<<"    Ingrese el nombre de su tienda";
-		cout<<endl<<">>> ";
-		cin>>nombre;
-		archiv1 << nombre;
-	} 
-	Tienda tienda1(nombre);
-	menu(tienda1);
 	return 0;
 }
